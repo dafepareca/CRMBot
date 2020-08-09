@@ -1,4 +1,6 @@
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer');
+const Functions  = require('./modulos/funcion');
+var os = require('os');
 
 const isDebug = true;
 (async () => {
@@ -23,6 +25,16 @@ const isDebug = true;
   await page.waitForXPath("//*[@id='searchSubmit']");
   const [btnBuscar] = await page.$x("//*[@id='searchSubmit']");
   await btnBuscar.click({clickCount: 1, delay: 100});
+  await page.waitFor(200);
+  await page.waitForXPath("//*[@id='salesperson_result']/div[2]/ul/li[1]/h2/a");
+  const [textName1] = await page.$x("//*[@id='salesperson_result']/div[2]/ul/li[1]/h2/a");
+  var textEstado1 = await Functions.getTextXelement(page, textName1);
+  console.log(textEstado1);
+  await page.waitFor(200);
+  await page.waitForXPath("//*[@id='salesperson_result']/div[2]/ul/li[2]/h2/a");
+  const [textName2] = await page.$x("//*[@id='salesperson_result']/div[2]/ul/li[2]/h2/a");
+  var textEstado2 = await Functions.getTextXelement(page, textName2);
+  console.log(textEstado2);
   //flujoBot();
 
   debugger;
